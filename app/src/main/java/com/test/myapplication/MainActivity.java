@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import java.util.List;
 
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -34,14 +33,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     public boolean isMockSettingsON() {
-        if(Build.VERSION.SDK_INT <= 22) {
-            return !Settings.Secure.getString(this.getContentResolver(),
-                    Settings.Secure.ALLOW_MOCK_LOCATION).equals("0");
+        if(Build.VERSION.SDK_INT <= 22 && !Settings.Secure.getString(this.getContentResolver(),
+                Settings.Secure.ALLOW_MOCK_LOCATION).equals("0")) {
+            return true;
         } else {
             return areThereMockPermissionApps();
         }
     }
-
 
     public boolean areThereMockPermissionApps() {
         int count = 0;
@@ -71,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("Got exception " , e.getMessage());
             }
         }
-
         return count > 0;
     }
 }
