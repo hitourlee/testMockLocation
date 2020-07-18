@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     public boolean isMockSettingsON() {
         if(Build.VERSION.SDK_INT <= 22 && !Settings.Secure.getString(this.getContentResolver(),
                 Settings.Secure.ALLOW_MOCK_LOCATION).equals("0")) {
