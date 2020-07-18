@@ -1,4 +1,4 @@
-package com.test.myapplication;
+package com.test.jsmodule;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -10,7 +10,8 @@ import android.util.Log;
 
 import java.util.List;
 
-public class isMockLocationEnabled {
+public class IsMockLocationEnabled {
+
     public static boolean check(Context context) {
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M && !Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ALLOW_MOCK_LOCATION).equals("0")) {
@@ -51,3 +52,4 @@ public class isMockLocationEnabled {
         return count > 0;
     }
 }
+

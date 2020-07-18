@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.test.jsmodule.IsMockLocationEnabled;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "MockS = "+isMockLocationEnabled.check(mContext),
+                Toast.makeText(getApplicationContext(), "MockS = "+ IsMockLocationEnabled.check(mContext),
                         Toast.LENGTH_LONG).show();
             }
         });
