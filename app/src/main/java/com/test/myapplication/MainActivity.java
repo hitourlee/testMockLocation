@@ -1,7 +1,6 @@
 package com.test.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
