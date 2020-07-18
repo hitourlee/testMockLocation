@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -26,23 +27,22 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "MockS = "+isMockSettingsON(),
                         Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(), "MockPermission = "+areThereMockPermissionApps(),
-                        Toast.LENGTH_LONG).show();
             }
         });
     }
 
 
     public boolean isMockSettingsON() {
-        if (Settings.Secure.getString(this.getContentResolver(),
-                Settings.Secure.ALLOW_MOCK_LOCATION).equals("0"))
-            return false;
-        else
-            return true;
+        if(Build.VERSION.SDK_INT <= 22) {
+            return !Settings.Secure.getString(this.getContentResolver(),
+                    Settings.Secure.ALLOW_MOCK_LOCATION).equals("0");
+        } else {
+            return areThereMockPermissionApps();
+        }
     }
 
 
-    public  boolean areThereMockPermissionApps() {
+    public boolean areThereMockPermissionApps() {
         int count = 0;
 
         PackageManager pm = this.getPackageManager();
@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 String[] requestedPermissions = packageInfo.requestedPermissions;
 
                 if (requestedPermissions != null) {
-                    for (int i = 0; i < requestedPermissions.length; i++) {
-                        if (requestedPermissions[i]
+                    for (String requestedPermission : requestedPermissions) {
+                        if (requestedPermission
                                 .equals("android.permission.ACCESS_MOCK_LOCATION")
                                 && !applicationInfo.packageName.equals(this.getPackageName())) {
                             count++;
@@ -71,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        if (count > 0)
-            return true;
-        return false;
+        return count > 0;
     }
 }
