@@ -12,7 +12,7 @@ import java.util.List;
 
 public class isMockLocationEnabled {
     public static boolean check(Context context) {
-        if(Build.VERSION.SDK_INT <= 22 && !Settings.Secure.getString(context.getContentResolver(),
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M && !Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ALLOW_MOCK_LOCATION).equals("0")) {
             return true;
         } else {
